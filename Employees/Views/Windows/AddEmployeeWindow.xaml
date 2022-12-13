@@ -1,0 +1,346 @@
+﻿<Window x:Class="Employees.Views.Windows.AddEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:Employees.Commands"
+        mc:Ignorable="d"
+        Title="ManageEmployeeWindow"
+        Height="550" 
+        Width="500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        Style="{DynamicResource WindowStyle}"
+        ResizeMode="NoResize" 
+        MouseLeftButtonDown="DraggableWindow">
+
+    <Grid >
+        
+        <Label Content="Регистрация сотрудника" 
+               HorizontalAlignment="Center"
+               FontFamily="Times New Roman"
+               FontWeight="Bold"
+               FontSize="25"
+               Style="{DynamicResource DefaultLabel}"/>
+        <StackPanel HorizontalAlignment="Center"
+                    Height="510"
+                    VerticalAlignment="Top" 
+                    Width="500"
+                    Margin="0 40 0 0">
+            
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label Content="Фамилия"
+                       Style="{DynamicResource RegistrationLabel}"
+                       Margin="10 0 0 0"/>
+                    <TextBox Text="{Binding LastName}"
+                             Style="{DynamicResource RegistrationTextBox}"
+                             Width="180"/>
+                    <Border BorderBrush="#534b4f"
+                            BorderThickness="1"
+                            Width="180"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="Имя"
+                       Style="{DynamicResource RegistrationLabel}"
+                       Margin="10 0 90 0"/>
+                    <TextBox Text="{Binding FirstName}" 
+                         Style="{DynamicResource RegistrationTextBox}"
+                         Width="150"/>
+                    <Border BorderBrush="#534b4f"
+                            BorderThickness="1"
+                            Width="170"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="ИНН" 
+                           Style="{DynamicResource RegistrationLabel}"
+                           Margin="10 0 50 0"/>
+                    <TextBox Text="{Binding INN}"
+                             Style="{DynamicResource RegistrationTextBox}"
+                             Width="100"
+                             MaxLength="12"/>
+                    <Border BorderBrush="#534b4f"
+                            BorderThickness="1"
+                            Width="100"/>
+                </StackPanel>
+                
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label Content="Отчество"
+                       Style="{DynamicResource RegistrationLabel}"
+                       Margin="10 10 90 0"/>
+                    <TextBox Text="{Binding SecondName}" 
+                         Style="{DynamicResource RegistrationTextBox}"
+                         Width="180"/>
+                    <Border Style="{DynamicResource DefaultBorder}"
+                            Width="180"/>
+                </StackPanel>
+                
+                
+                <StackPanel>
+                    <Label Content="Номер телефона" 
+                           Style="{DynamicResource RegistrationLabel}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="+7"
+                               Style="{DynamicResource NumberLabel}"
+                               Width="30" 
+                               FontSize="15"
+                               Height="30"
+                               Margin="10 13 0 0"/>
+                        <TextBox Text="{Binding PhoneNumber}" 
+                                 Style="{DynamicResource RegistrationTextBox}"
+                                 Width="110" 
+                                 MaxLength="10"
+                                 Margin="0 10 0 0"/>
+                    </StackPanel>
+                    <Border Style="{DynamicResource DefaultBorder}"
+                            Width="140"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="СНИЛС"
+                           Style="{DynamicResource RegistrationLabel}"
+                           Margin="35 10 0 0"/>
+                    <TextBox Text="{Binding SNILS}"
+                             Style="{DynamicResource RegistrationTextBox}"
+                             Width="105"
+                             MaxLength="11"/>
+                    <Border Style="{DynamicResource DefaultBorder}"
+                            Width="105"/>
+                </StackPanel>
+                
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label Content="Адрес регистрации" 
+                           Style="{DynamicResource RegistrationLabel}"
+                           Margin="10 0 0 0"/>
+                    <TextBox Text="{Binding Address}" 
+                             Style="{DynamicResource RegistrationTextBox}"
+                             Width="350"
+                             HorizontalAlignment="Left"/>
+                    <Border Style="{DynamicResource DefaultBorder}"
+                            Width="350"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="Паспорт"
+                           Style="{DynamicResource RegistrationLabel}"
+                           Margin="10 0 0 0"/>
+                    <TextBox Text="{Binding Passport}"
+                             Style="{DynamicResource RegistrationTextBox}"
+                             Width="105"
+                             MaxLength="10"/>
+                    <Border Style="{DynamicResource DefaultBorder}"
+                            Width="105"/>
+                </StackPanel>
+                
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label Content="Где был выдан"
+                           Style="{DynamicResource RegistrationLabel}"
+                           Margin="10 0 0 0"/>
+                    <TextBox Text="{Binding GettingPlace}"
+                             Style="{DynamicResource RegistrationTextBox}"
+                             Width="230"/>
+                    <Border Style="{DynamicResource DefaultBorder}"
+                            Width="230"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Дата выдачи"
+                           Style="{DynamicResource RegistrationLabel}"/>
+                    <DatePicker SelectedDate="{Binding GettingDate}"
+                                Height="40" Width="85" 
+                                FontSize="15" 
+                                Cursor="Hand" 
+                                DisplayDateEnd="2021-03-12"
+                                DisplayDateStart="1950-03-12"
+                                DisplayDate="2021-03-12"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="Дата Рождения" 
+                           Style="{DynamicResource RegistrationLabel}" 
+                           Margin="10 0 0 0"/>
+                    <DatePicker SelectedDate="{Binding BirthDate}"
+                                Height="40"
+                                Width="100" 
+                                FontSize="15"
+                                Cursor="Hand" 
+                                IsTodayHighlighted="True"
+                                DisplayDateEnd="2005-03-12"
+                                DisplayDateStart="1900-03-12"
+                                DisplayDate="2005-03-12"/>
+                </StackPanel>    
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label Content="Профессия"
+                           Style="{DynamicResource RegistrationLabel}" 
+                           Margin="10 0 0 0"/>
+                    <ComboBox ItemsSource="{Binding Professions}"
+                              Width="225"
+                              SelectedIndex="{Binding SelectedProfession}"
+                              Margin="10 0 0 0" 
+                              FontSize="20"
+                              VerticalContentAlignment="Center"
+                              HorizontalContentAlignment="Center"
+                              VirtualizingStackPanel.VirtualizationMode="Recycling">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Фотография"
+                           Style="{DynamicResource RegistrationLabel}"/>
+                    <Button Content="...."
+                            Height="40"
+                            Width="60"
+                            Cursor="Hand"
+                            Command="{Binding OpenFileCommand}"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left">
+                    <Label Content="Семейное положение"
+                           Style="{DynamicResource RegistrationLabel}"
+                           FontSize="14"/>
+                    <ComboBox ItemsSource="{Binding MaritalStatuses}"
+                              Height="40"
+                              Width="120"
+                              Margin="10 0 0 0"
+                              SelectedIndex="0"
+                              VerticalContentAlignment="Center"
+                              HorizontalAlignment="Left"
+                              SelectedItem="{Binding SelectedMaritalStatus}"
+                              VirtualizingStackPanel.VirtualizationMode="Recycling">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                </StackPanel>
+                
+                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Стаж работы" 
+                       Style="{DynamicResource RegistrationLabel}"
+                       Margin="10 0 5 0"/>
+                <Label Content="Права:"
+                       Style="{DynamicResource RegistrationLabel}"
+                       Margin="210 0 0 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        Height="55">
+                <ComboBox Width="115"
+                          Margin="10 0 0 0" 
+                          Height="40"
+                          ItemsSource="{Binding WorkYears}"
+                          SelectedItem="{Binding SelectedWorkYearExperience}"
+                          FontSize="20"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          VirtualizingStackPanel.VirtualizationMode="Recycling"
+                          ScrollViewer.IsDeferredScrollingEnabled="True">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+                <ComboBox Width="100" 
+                          Margin="15 0 0 0"
+                          Height="40"
+                          ItemsSource="{Binding WorkMonths}"
+                          SelectedItem="{Binding SelectedWorkMonthExperience}"
+                          FontSize="20"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          VirtualizingStackPanel.VirtualizationMode="Recycling"
+                          ScrollViewer.IsDeferredScrollingEnabled="True">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+                <StackPanel VerticalAlignment="Center" 
+                            Margin="30 0 0 0">
+                    <RadioButton Content="Да"
+                                 x:Name="HaveLicense"
+                                 Command="{Binding RadioButtonCommand}"
+                                 CommandParameter="HaveLicense"
+                                 FontSize="20"/>
+                    <RadioButton Content="Нет" x:Name="DoNotHaveLicense"
+                                 Command="{Binding RadioButtonCommand}"
+                                 CommandParameter="DoNotHaveLicense"
+                                 FontSize="20"/>
+                </StackPanel>
+                <ComboBox ItemsSource="{Binding DrivingLicenses,
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        Mode=TwoWay}"
+                          x:Name="DrivingLicensesComboBox"
+                          Height="40" 
+                          Width="140"
+                          VerticalContentAlignment="Center"
+                          SelectedIndex="0"
+                          FontSize="13"
+                          HorizontalContentAlignment="Center"
+                          Margin="10 0 0 0"
+                          IsEnabled="True"
+                          VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsSelected}"
+                                          Width="120"
+                                          Content="{Binding Text}"/>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 10 10 0"
+                        HorizontalAlignment="Center">
+                <Button Content="Регистрация"
+                        Height="40" 
+                        Width="100"
+                        Cursor="Hand"
+                        FontSize="15"
+                        Command="{Binding RegistrateCommand}"
+                        Style="{DynamicResource DefaultButton}"
+                        HorizontalAlignment="Center"/>
+                <Button Name="CloseWindow" 
+                        Content="Отмена" 
+                        Width="70"
+                        Foreground="#800000"
+                        Cursor="Hand"
+                        Height="40"
+                        FontSize="15"
+                        Click="CloseWindow_Click"
+                        Style="{DynamicResource DefaultButton}"
+                        Margin="20 0 0 0"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>

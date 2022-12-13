@@ -1,0 +1,71 @@
+﻿<Window x:Class="Employees.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:Employees.Commands"
+        mc:Ignorable="d"
+        MouseLeftButtonDown="DraggableWindow"
+        Height="400" Width="400" ResizeMode="NoResize" 
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource WindowStyle}">
+
+
+    <Grid>
+        <Button VerticalAlignment="Top"
+                Style="{StaticResource ExitButton}"
+                Name="exit"
+                HorizontalAlignment="Right">
+            <Button.Command>
+                <cmd:CloseApplicationCommand/>
+            </Button.Command>
+            <Image Style="{StaticResource ExitImage}"/>
+        </Button>
+        <Grid HorizontalAlignment="Center"
+              VerticalAlignment="Top" 
+              Margin="0,51,0,0">
+            <Label HorizontalAlignment="Center"
+                   Content="Авторизация" 
+                   Margin="0,19,0,251"
+                   Style="{DynamicResource AuthorizationLabel}"/>
+
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Style="{DynamicResource AuthorizationPanel}">
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="10 10 10 0">
+                    <Label Content="+7" Margin="0" 
+                           Style="{DynamicResource NumberLabel}"/>
+                    <TextBox Margin="0" 
+                             Text="{Binding Path=PhoneNumber}"
+                             MaxLength="10"
+                             Padding="0"
+                             Style="{DynamicResource DefaultTextBox}"/>
+                </StackPanel>
+                <Border Width="220"
+                        HorizontalAlignment="Left"
+                        Margin="20 0 0 0"
+                        Style="{DynamicResource DefaultBorder}"/>
+                <PasswordBox x:Name="UserPassword" 
+                             MaxLength="25"
+                             Width="250"
+                             Margin="10 0 10 10"
+                             Style="{DynamicResource DefaultPasswordBox}"/>
+            </StackPanel>
+
+
+        </Grid>
+        <Button VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Content="Войти" 
+                Cursor="Hand"
+                CommandParameter="{Binding ElementName=UserPassword}" 
+                Command="{Binding OpenEmployeeWindowCommand}"
+                Style="{DynamicResource AuthorizationButton}"
+                Height="70"
+                Width="70"
+                Margin="305,0,0,0"/>
+    </Grid>
+</Window>

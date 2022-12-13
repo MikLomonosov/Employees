@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="Employees.Views.EmployeeListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="500">
+    
+    <Grid>
+        <CheckBox Content="Фильтрация по дате"
+                      VerticalAlignment="Center"
+                      x:Name="IsUseFilter"
+                      Command="{Binding UseFilterCommand}"
+                      CommandParameter="{Binding IsChecked,
+                                        RelativeSource={RelativeSource Self},
+                                        Mode=OneWay}"
+                      Cursor="Hand"/>
+        
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" 
+                      VerticalScrollBarVisibility="auto"
+                      CanContentScroll="True" 
+                      Width="auto"
+                      Height="450">
+            <ListBox Name="listEmployees"
+                     Margin="5" 
+                     ItemsSource="{Binding Employees}" 
+                     HorizontalContentAlignment="Center"
+                     VerticalAlignment="Top" 
+                     BorderThickness="0" 
+                     Cursor="Hand"
+                     ItemContainerStyle="{StaticResource EmployeeListBoxItems}" 
+                     VirtualizingPanel.IsVirtualizing="True"
+                     VirtualizingPanel.VirtualizationMode="Recycling"
+                     VirtualizingPanel.IsContainerVirtualizable="True"
+                     ScrollViewer.IsDeferredScrollingEnabled="True"
+                     SelectedIndex="{Binding SelectedEmployee}"
+                     Style="{StaticResource DefaultListBoxBox}">
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5" 
+                                Style="{DynamicResource DefaultBorder}"
+                                CornerRadius="4"
+                                Width="400">
+                            <Grid Margin="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Grid.RowSpan="2" 
+                                           Width="100" 
+                                           Height="75" 
+                                           Margin="6" 
+                                           Source="{Binding ImagePath}"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label FontWeight="Medium"
+                                                   Style="{DynamicResource DefaultLabel}"
+                                                   Content="{Binding LastName}"/>
+                                            <Label FontWeight="Bold"
+                                                   Style="{DynamicResource DefaultLabel}"
+                                                   Content="{Binding FirstName}"/>
+                                            <Label FontWeight="Medium" 
+                                                   Style="{DynamicResource DefaultLabel}"
+                                                   Content="{Binding Patronymic}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Номер телефона: (+7)"
+                                                   Style="{DynamicResource DefaultLabel}"/>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Style="{DynamicResource DefaultTextBlock}"
+                                                       Text="{Binding PhoneNumber}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Паспорт:"
+                                                   Style="{DynamicResource DefaultLabel}"/>
+                                            <TextBlock x:Name="passport"
+                                                       Style="{DynamicResource DefaultTextBlock}"
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding PassportData}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Подробнее" 
+                                                    Command="{Binding Path=DataContext.OpenEmployeeDetailedInformation,
+                                                     ElementName=listEmployees}"
+                                                    CommandParameter="passport"
+                                                    Height="20"
+                                                    Width="150"
+                                                    Background="Transparent"
+                                                    FontSize="9"
+                                                    Foreground="Black"
+                                                    Cursor="Arrow"
+                                                    Style="{DynamicResource DefaultButton}"/>
+                                            <Button Content="Удалить"
+                                                    Command="{Binding Path=DataContext.RemoveEmployeeCommand,
+                                                    ElementName=listEmployees}"
+                                                    CommandParameter="passport"
+                                                    Height="20" 
+                                                    Width="70"
+                                                    Background="Transparent"
+                                                    FontSize="9"
+                                                    Foreground="#800000"
+                                                    Cursor="Arrow"
+                                                    Margin="10 0 0 0"
+                                                    Style="{DynamicResource DefaultButton}"/>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                </StackPanel>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,131 @@
+﻿<Window x:Class="Employees.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:Employees.Commands"  
+        xmlns:vm="clr-namespace:Employees.ViewModels"
+        xmlns:v="clr-namespace:Employees.Views"
+        mc:Ignorable="d"
+        MouseLeftButtonDown="DraggableWindow"
+        Title="Main" Height="500" Width="440"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" ResizeMode="NoResize"
+        Style="{DynamicResource WindowStyle}">
+
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                           Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>   
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.5"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                           Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonShowMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonHideMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vm:EmployeeListViewModel}">
+                <v:EmployeeListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ManageEmployeeViewModel}">
+                <v:ManageEmployeeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EmployeeDetailedInformationViewModel}">
+                <v:EmployeeDetailedInformationView/>
+            </DataTemplate>
+        </Grid.Resources>
+        
+        <StackPanel Height="450"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Bottom"
+                    Width="440">
+            <ContentControl Content="{Binding CurrentContent}"/>
+        </StackPanel>
+
+        <Button Style="{StaticResource ExitButton}" HorizontalAlignment="Right"
+                VerticalAlignment="Top" Name="exit">
+            <Button.Command>
+                <cmd:CloseApplicationCommand/>
+            </Button.Command>
+            <Image Style="{StaticResource ExitImage}"/>
+        </Button>
+
+
+        <Grid x:Name="GridMenu" Height="150" 
+              Width="150" Margin="-32,-67,322,0" 
+              Opacity="0"
+              VerticalAlignment="Top">
+            <Ellipse Height="150" Width="150" 
+                     Fill="#dc143c"
+                     Margin="-30,8,30,-8"/>
+
+            <Button x:Name="Settings"
+
+                    Style="{StaticResource CircleMenuButton}" 
+                    Height="25" Width="25" 
+                    Cursor="Hand" Margin="76,110,48,14" 
+                    Command="{Binding JumpToManageEmployeeView}">
+                <Image Style="{DynamicResource SettingMenu}"/>
+            </Button>
+            <Button x:Name="LogOut" 
+                    Style="{StaticResource CircleMenuButton}" 
+                    Height="25" Width="25" 
+                    Cursor="Hand" Margin="34,126,90,-2"
+                    Command="{Binding LogOut}">
+                <Image Style="{DynamicResource LogOutMenu}"/>
+            </Button>
+            <Button x:Name="Profile"
+                    Style="{StaticResource CircleMenuButton}"
+                    Height="25" Width="25" 
+                    Cursor="Hand"
+                    Margin="90,70,34,54" 
+                    Command="{Binding JumpToMainView}">
+                <Image Style="{DynamicResource ProfileMenu}"/>
+            </Button>
+        </Grid>
+
+        <Button Name="ButtonShowMenu"
+                Height="40" Width="40"
+                Background="{x:Null}"
+                VerticalAlignment="Top"
+                Cursor="Hand" 
+                Style="{StaticResource CircleButton}" 
+                HorizontalAlignment="Left"
+                BorderBrush="{x:Null}"
+                Click="ButtonShowMenu_Click">
+            <Image Style="{DynamicResource MenuImage}"/>
+        </Button>
+
+        <Button x:Name="ButtonHideMenu"
+                Height="50" Width="50" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Background="{x:Null}" 
+                Cursor="Hand" 
+                Style="{StaticResource CircleButton}"
+                BorderBrush="{x:Null}"
+                Click="ButtonHideMenu_Click"
+                Visibility="Collapsed">
+            <Image Style="{DynamicResource MenuImage}"
+                   Height="auto" Width="auto"/>
+        </Button>
+
+    </Grid>
+</Window>
